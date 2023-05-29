@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Handled ToDos
+{% endblock title %}
+
+
+
+{% block body %}
+<h1>Handled ToDos</h1>
+
+<br>
+
+<table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+        <th scope="col">Branch</th>
+
+      </tr>
+    </thead>
+    <tbody>
+    {% if object_list %}    
+
+      {% for todo in object_list %}
+      {% if todo.activity == 'P' %}
+                
+      <tr>
+          
+          <td>{{todo.title}}</td>
+          <td>{{todo.content}}</td>
+          <td>{{todo.branch}}</td>
+
+
+      </tr>
+      {% endif %}
+      {% endfor %}
+
+    {% else %}
+    <td colspan="3">It's empty here. Let's create a ToDo &#x2193;</td>
+    {% endif %}
+  </tbody>
+</table>
+    <a href="{% url 'todo:addFullToDo' %}">
+        <button class="btn btn-primary">Create ToDo</button>
+    </a>
+
+
+{% endblock body %}

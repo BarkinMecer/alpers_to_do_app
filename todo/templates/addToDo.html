@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Create ToDo{% endblock title %}
+{% block body %}
+<h2>Create ToDo</h2>
+<form method="post" >
+    {% csrf_token %} 
+    {{ form|crispy }}
+
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+
+
+{% endblock body %}

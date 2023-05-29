@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Home
+{% endblock title %}
+
+
+
+{% block body %}
+  <h1>Welcome, Alper</h1><br>
+
+    {% if object_list %}    
+
+      {% for branch in object_list %}
+      <a href="{% url 'todo:branch' branch.id %}">
+        <button class="btn btn-info"  style="width:20rem; height:16rem; margin:5px;">
+              <h3>{{branch.name}}</h3>
+        </button>
+      </a>
+      {% endfor %}
+
+    {% else %}
+    <button class="btn btn-warning"  style="width:20rem; height:16rem; margin:5px;">
+      <h3>There are no branch here. Let's create new one. &#8594;&#8594;</h3>
+</button>
+    {% endif %}
+    <a href="{% url 'todo:addBranch' %}">
+      <button class="btn btn-danger"  style="width:20rem; height:16rem; margin:5px;">
+        <h3>Create Branch</h3>
+      </button>
+    </a>
+
+{% endblock body %}

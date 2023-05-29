@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+{{branch.name}}
+{% endblock title %}
+
+{% block body %}
+        <h1>
+            {{branch.name}}
+            <a href="{% url 'todo:deleteBranch' branch.name %}" style="float:right; margin-left:8px;">
+                <button class="btn btn-outline-danger">Delete Branch</button>
+            </a>            
+            <a href="{% url 'todo:updateBranch' branch.name %}" style="float:right;">
+                <button class="btn btn-outline-info">Update Branch</button>
+            </a>
+
+        </h1>
+
+        <br>
+
+        <table class="table table-hover">
+            <thead class="thead-dark">
+              <tr class="text-center" >
+                <th scope="col">Title</th>
+                <th scope="col">Importance</th>
+                <th scope="col">Ending Time</th>
+                <th scope="col"></th>
+
+              </tr>
+            </thead>
+            <tbody>
+      
+       
+            {% if object_list %}
+              
+            {% for todo in object_list %}
+            {% if todo.activity == 'A' %}
+                
+                <tr class="clickable text-center" 
+                onclick="window.location='{% url 'todo:todoDetail' todo.id %}'">
+                    
+                    <td><strong>{{todo.title}}{% if todo.time_up %}<span style="color:red;">  !!</span></strong>{% endif %}</td>
+                    <td>{{todo.get_importance_display}}</td>
+                    <td>{{todo.finish_date}}</td>
+                    <td>      
+                        <a href="{% url 'todo:updateToDo' todo.title %}">
+                            <button class="btn btn-info">Update</button>
+                            </a>                        
+                        <a href="{% url 'todo:deleteToDo' todo.title %}">
+                            <button class="btn btn-danger">Delete</button>
+                            </a>
+                    </td>
+
+                </tr>
+                {% endif %}
+            {% endfor %}
+
+
+            
+        {% else %}
+        <td colspan="4">It's empty here. Let's create a ToDo &#x2193;</td>
+        {% endif %}
+            </tbody>
+        </table>
+        <a href="{% url 'todo:addToDo' branch.name %}">
+            <button class="btn btn-primary">Create ToDo</button>
+        </a>
+
+
+{% endblock body %}
